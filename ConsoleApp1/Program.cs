@@ -10,42 +10,105 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+            AlberoBinario sx = new AlberoBinario(89);
+            AlberoBinario dx = new AlberoBinario(28);
+            AlberoBinario r = new AlberoBinario(69);
 
-            AlberoBinario a = new AlberoBinario(5, 4, 89);
+            sx = new AlberoBinario(39);
+            dx = new AlberoBinario(66);
+            r.aggFiSx(new AlberoBinario(sx, dx, 89));
+            sx = new AlberoBinario(2);
+            dx = new AlberoBinario(71);
+            r.aggFiSx(new AlberoBinario(sx, dx, 39));
+            sx = new AlberoBinario(44);
+            dx = new AlberoBinario(12);
+            r.aggFiDx(new AlberoBinario(sx, dx, 28));
+            r.Stampa();
+            Console.WriteLine("stampa con il To String");
+            Console.WriteLine(r);
+            Console.ReadKey();
         }
     }
-public class AlberoBinario
+    public class AlberoBinario
     {
         private AlberoBinario sx;
         private AlberoBinario dx;
         private int val;
-        
-        public AlberoBinario(AlberoBinario sx,AlberoBinario dx, int val)
+        public AlberoBinario(AlberoBinario sx, AlberoBinario dx, int val)
         {
             this.sx = sx;
             this.dx = dx;
             this.val = val;
         }
-        public int getVal()
+        public AlberoBinario(int valore)
         {
-            return val;
+            this.sx = null;
+            this.dx = null;
+            this.val = valore;
         }
-        public AlberoBinario ins(AlberoBinario r)
+        public void aggFiSx(AlberoBinario a)
         {
-            r = new AlberoBinario(sx,dx,val);
-            if (r != null)
+            this.sx = a;
+        }
+        public void aggFiDx(AlberoBinario a)
+        {
+            this.dx = a;
+        }
+        public void Stampa()
+        {
+            if (sx == null && dx == null)
             {
-                if (r < val )
+                Console.WriteLine(this.val);
+            }
+            else
+            {
+                Console.WriteLine(this.val);
+                try
                 {
-                    sx.getVal() = val;
+                    sx.Stampa();
                 }
-                else
+                catch
                 {
-                    dx.getVal() = val;
+
+                }
+                try
+                {
+                    dx.Stampa();
+                }
+                catch
+                {
+
                 }
             }
-                return null;
-            
+        }
+        public override string ToString()
+        {
+            string s = null;
+            if (sx == null && dx == null)
+            {
+                s += this.val;  
+            }
+            else
+            {
+                s += this.val;
+            try
+            {
+                    s += sx.ToString();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    s += dx.ToString();
+                }
+                catch
+                {
+
+                }
+            }
+            return "(" + s + ")";
         }
     }
 }

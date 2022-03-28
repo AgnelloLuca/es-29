@@ -11,9 +11,13 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             AlberoBinario sx = new AlberoBinario(89);
-            AlberoBinario dx = new AlberoBinario(28);
+            AlberoBinario dx = null;
             AlberoBinario r = new AlberoBinario(69);
 
+            r.aggFiSx(new AlberoBinario(sx, dx, 69));
+            sx = null;
+            dx = new AlberoBinario(28);
+            r.aggFiDx(new AlberoBinario(sx, dx, 69));
             sx = new AlberoBinario(39);
             dx = new AlberoBinario(66);
             r.aggFiSx(new AlberoBinario(sx, dx, 89));
@@ -26,6 +30,13 @@ namespace ConsoleApp1
             r.Stampa();
             Console.WriteLine("stampa con il To String");
             Console.WriteLine(r);
+
+         /*   Console.WriteLine("stampa con i primi figli rimossi");
+            r.rimSx(new AlberoBinario(sx, dx, 39));
+            r.Stampa();
+            
+            Console.WriteLine("stampa con il To String");
+            Console.WriteLine(r);*/
             Console.ReadKey();
         }
     }
@@ -54,6 +65,14 @@ namespace ConsoleApp1
         {
             this.dx = a;
         }
+        /*public void rimSx(AlberoBinario a)
+        {
+            this.sx=null;
+        }
+        public void rimDx(AlberoBinario a)
+        {
+            this.dx = null;
+        }*/
         public void Stampa()
         {
             if (sx == null && dx == null)
@@ -81,18 +100,45 @@ namespace ConsoleApp1
                 }
             }
         }
+       /* public AlberoBinario rimuoviSx(AlberoBinario a)
+        {
+            if (sx==null)
+            {
+                Console.WriteLine("l' albero dalla parte sinistra è vuoto");
+                return null;
+            }
+            else
+            {
+                AlberoBinario tmpsx = sx;
+                sx.rimSx(a);
+                dx.rimDx(a);
+                return tmpsx;
+            }
+            if (dx == null)
+            {
+                Console.WriteLine("l' albero dalla parte destra è vuoto");
+                return null;
+            }
+            else
+            {
+                AlberoBinario tmpdx = dx;
+                sx.rimSx(a);
+                dx.rimDx(a);
+                return tmpdx;
+            }
+        }*/
+        
         public override string ToString()
         {
             string s = null;
             if (sx == null && dx == null)
             {
-                s += this.val;  
+                return this.val + "";
             }
-            else
+            else if (sx != null && dx != null)
             {
-                s += this.val;
-            try
-            {
+                try
+                {
                     s += sx.ToString();
                 }
                 catch
@@ -107,8 +153,48 @@ namespace ConsoleApp1
                 {
 
                 }
+                return this.val + "(" + sx + ")" + "(" + dx + ")";
             }
-            return "(" + s + ")";
+            else if (sx != null && dx == null)
+            {
+                try
+                {
+                    s += sx.ToString();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    s += dx.ToString();
+                }
+                catch
+                {
+
+                }
+                return this.val + "(" + sx + ")" + "(" + 0 + ")";
+            }
+            else
+            {
+                try
+                {
+                    s += sx.ToString();
+                }
+                catch
+                {
+
+                }
+                try
+                {
+                    s += dx.ToString();
+                }
+                catch
+                {
+
+                }
+                return this.val + "(" + 0 + ")" + "(" + dx + ")";
+            }
         }
     }
 }

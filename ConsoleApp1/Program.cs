@@ -104,7 +104,26 @@ namespace ConsoleApp1
                     s.Push(tmp.sx);
             }
         }
-      
+        public void stampait2()
+        {
+            Stack s = new Stack();
+            s.Push(this);
+            AlberoBinario tmp = this;
+            while (s.Count != 0)
+            {
+                do
+                {
+                    Console.WriteLine(tmp.val);
+                    s.Push(tmp);
+                    tmp = tmp.dx;
+                } while (tmp != null);
+                do
+                {
+                    tmp = (AlberoBinario)s.Pop();
+                } while (tmp.sx == null);
+                tmp = tmp.sx;
+            }
+        }
         public override string ToString()
         {
             string s = null;

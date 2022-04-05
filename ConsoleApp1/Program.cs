@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,33 +11,32 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            AlberoBinario sx = new AlberoBinario(89);
+            AlberoBinario sx = null;
             AlberoBinario dx = null;
+            AlberoBinario p = new AlberoBinario(39);
             AlberoBinario r = new AlberoBinario(69);
 
-            r.aggFiSx(new AlberoBinario(sx, dx, 69));
-            sx = null;
-            dx = new AlberoBinario(28);
-            r.aggFiDx(new AlberoBinario(sx, dx, 69));
             sx = new AlberoBinario(39);
             dx = new AlberoBinario(66);
             r.aggFiSx(new AlberoBinario(sx, dx, 89));
+            
             sx = new AlberoBinario(2);
             dx = new AlberoBinario(71);
-            r.aggFiSx(new AlberoBinario(sx, dx, 39));
+            p.aggFiSx(new AlberoBinario(sx, dx, 39));
+     
             sx = new AlberoBinario(44);
             dx = new AlberoBinario(12);
             r.aggFiDx(new AlberoBinario(sx, dx, 28));
-            r.Stampa();
-            Console.WriteLine("stampa con il To String");
-            Console.WriteLine(r);
 
-         /*   Console.WriteLine("stampa con i primi figli rimossi");
-            r.rimSx(new AlberoBinario(sx, dx, 39));
             r.Stampa();
-            
-            Console.WriteLine("stampa con il To String");
-            Console.WriteLine(r);*/
+               Console.WriteLine("stampa con il To String");
+               Console.WriteLine(r);
+
+              /* Console.WriteLine("--Iterativa--------------");
+               r.stampaIterativa();
+               Console.WriteLine("--Iterativa2--------------");
+               r.stampaIterativa2();*/
+   
             Console.ReadKey();
         }
     }
@@ -53,9 +53,9 @@ namespace ConsoleApp1
         }
         public AlberoBinario(int valore)
         {
+            this.val = valore;
             this.sx = null;
             this.dx = null;
-            this.val = valore;
         }
         public void aggFiSx(AlberoBinario a)
         {
@@ -65,136 +65,66 @@ namespace ConsoleApp1
         {
             this.dx = a;
         }
-        /*public void rimSx(AlberoBinario a)
-        {
-            this.sx=null;
-        }
-        public void rimDx(AlberoBinario a)
-        {
-            this.dx = null;
-        }*/
         public void Stampa()
+         {
+             if (sx == null && dx == null)
+             {
+                 Console.WriteLine(this.val);
+             }
+             else
+             {
+                 Console.WriteLine(this.val);
+                 try
+                 {
+                     sx.Stampa();
+                 }
+                 catch
+                 {
+                 }
+                 try
+                 {
+                     dx.Stampa();
+                 }
+                 catch
+                 {
+                 }
+             }
+         }
+        public void stampait()
         {
-            if (sx == null && dx == null)
+            Stack s = new Stack();
+            s.Push(this);
+            while (s.Count != 0)
             {
-                Console.WriteLine(this.val);
-            }
-            else
-            {
-                Console.WriteLine(this.val);
-                try
-                {
-                    sx.Stampa();
-                }
-                catch
-                {
-
-                }
-                try
-                {
-                    dx.Stampa();
-                }
-                catch
-                {
-
-                }
+                AlberoBinario tmp = (AlberoBinario)s.Pop();
+                Console.WriteLine(tmp.val);
+                if (tmp.dx != null)
+                    s.Push(tmp.dx);
+                if (tmp.sx != null)
+                    s.Push(tmp.sx);
             }
         }
-       /* public AlberoBinario rimuoviSx(AlberoBinario a)
-        {
-            if (sx==null)
-            {
-                Console.WriteLine("l' albero dalla parte sinistra è vuoto");
-                return null;
-            }
-            else
-            {
-                AlberoBinario tmpsx = sx;
-                sx.rimSx(a);
-                dx.rimDx(a);
-                return tmpsx;
-            }
-            if (dx == null)
-            {
-                Console.WriteLine("l' albero dalla parte destra è vuoto");
-                return null;
-            }
-            else
-            {
-                AlberoBinario tmpdx = dx;
-                sx.rimSx(a);
-                dx.rimDx(a);
-                return tmpdx;
-            }
-        }*/
-        
+      
         public override string ToString()
         {
             string s = null;
             if (sx == null && dx == null)
             {
-                return this.val + "";
-            }
-            else if (sx != null && dx != null)
-            {
-                try
-                {
-                    s += sx.ToString();
-                }
-                catch
-                {
-
-                }
-                try
-                {
-                    s += dx.ToString();
-                }
-                catch
-                {
-
-                }
-                return this.val + "(" + sx + ")" + "(" + dx + ")";
-            }
-            else if (sx != null && dx == null)
-            {
-                try
-                {
-                    s += sx.ToString();
-                }
-                catch
-                {
-
-                }
-                try
-                {
-                    s += dx.ToString();
-                }
-                catch
-                {
-
-                }
-                return this.val + "(" + sx + ")" + "(" + 0 + ")";
+                return "(" + this.val + ")";
             }
             else
             {
-                try
+                s += "(" + this.val;
+                if (sx != null)
                 {
                     s += sx.ToString();
                 }
-                catch
+                if (dx != null)
                 {
-
+                    s += dx.ToString() + ")";
                 }
-                try
-                {
-                    s += dx.ToString();
-                }
-                catch
-                {
-
-                }
-                return this.val + "(" + 0 + ")" + "(" + dx + ")";
             }
+            return s;
         }
     }
 }

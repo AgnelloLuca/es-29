@@ -106,20 +106,20 @@ namespace ConsoleApp1
         }
         public void stampait2()
         {
-             Queue c = new Queue();
-            c.Enqueue(this);
+             Stack s = new Stack();
+            s.Push(this);
             AlberoBinario tmp = this;
-            while (c.Count != 0)
+            while (s.Count != 0)
             {
                 do
                 {
                     Console.WriteLine(tmp.val);
-                    c.Enqueue(tmp);
+                    s.Pop(tmp);
                     tmp = tmp.dx;
                 } while (tmp != null);
                 do
                 {
-                    tmp = (AlberoBinario)c.Dequeue();
+                    tmp = (AlberoBinario)s.Pop();
                 } while (tmp.sx == null);
                 tmp = tmp.sx;
             }

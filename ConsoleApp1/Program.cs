@@ -114,7 +114,7 @@ namespace ConsoleApp1
                 do
                 {
                     Console.WriteLine(tmp.val);
-                    s.Pop(tmp);
+                   s.Push(tmp);
                     tmp = tmp.dx;
                 } while (tmp != null);
                 do
@@ -124,6 +124,28 @@ namespace ConsoleApp1
                 tmp = tmp.sx;
             }
         }
+        /*public void stampapost()
+        {
+             Stack s = new Stack();
+            s.Push(this);
+            AlberoBinario tmp = this;
+            while (s.Count != 0)
+            {
+                do
+                {
+        if (tmp.sx == null && tmp.dx == null){
+                    Console.WriteLine(tmp.val);
+                   s.Peek(tmp);
+                    tmp = tmp.dx;
+        }
+                } while (tmp != null);
+                do
+                {
+                    tmp = (AlberoBinario)s.Pop();
+                } while (tmp.sx == null);
+                tmp = tmp.sx;
+            }
+        }*/
         public override string ToString()
         {
             string s = null;
